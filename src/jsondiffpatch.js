@@ -4,8 +4,11 @@
 *   https://github.com/benjamine/JsonDiffPatch
 *   by Benjamin Eidelman - beneidel@gmail.com
 */
+
 (function(){
 "use strict";
+  
+    function jdpFactory() {
 
     var jdp = {};
     if (typeof jsondiffpatch != 'undefined'){
@@ -864,16 +867,20 @@
 
         return patch(o, pname, reverse(d), path);
     };
+
+    return jdp;
+    
+    }
     
     if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
         // CommonJS, eg: node.js
-        module.exports = jdp;
+        module.exports = jdpFactory;
     } else if (typeof define === 'function' && define['amd']) {
         // AMD
-        define(jdp);
+        define(jdpFactory());
     } else {
         // browser global
-        window.jsondiffpatch = jdp;
+        window.jsondiffpatch = jdpFactory();
     }
 
 })();
